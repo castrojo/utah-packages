@@ -57,7 +57,7 @@ class FactoryManifestTests(unittest.TestCase):
             self.assertEqual(data["requested_packages"], ["demo"])
             self.assertEqual(data["packages"], ["x86_64/demo-1.0-1.hum1.bfin.x86_64.rpm"])
             self.assertEqual(data["oci"]["digest"], "sha256:123456")
-            self.assertEqual(len(data["sources"]), 2)
+            self.assertEqual(len(data["sources"]), 1)
             self.assertEqual(len(data["buildroots"]), 1)
 
 

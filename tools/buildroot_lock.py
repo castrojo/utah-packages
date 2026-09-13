@@ -24,6 +24,12 @@ def load_lock(path: Path) -> dict:
     data = json.loads(path.read_text())
     if data.get("schema") != 1 or not isinstance(data.get("buildroots"), dict):
         raise ValueError(f"invalid buildroot lock: {path}")
+    for name, br in data["buildroots"].items():
+        image = br.get("image") if isinstance(br, dict) else None
+        if not isinstance(image, str) or "@sha256:" not in image:
+            raise ValueError(f"buildroot {name} image must be digest-pinned")
+        if not isinstance(br.get("packages", []), list):
+            raise ValueError(f"buildroot {name} packages must be a list")
     return data
 
 
